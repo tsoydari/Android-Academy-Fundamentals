@@ -1,11 +1,15 @@
-package by.androidacademy.firstapplication.threads
+package by.androidacademy.firstapplication.ui.activities
 
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import by.androidacademy.firstapplication.R
+import by.androidacademy.firstapplication.threads.CounterFragment
+import by.androidacademy.firstapplication.threads.SimpleAsyncTask
+import by.androidacademy.firstapplication.threads.TaskEventContract
 
-class ThreadsActivity : AppCompatActivity(), TaskEventContract.Lifecycle,
+class ThreadsActivity : AppCompatActivity(),
+    TaskEventContract.Lifecycle,
     TaskEventContract.Operationable {
 
     private var threadsFragment: CounterFragment? = null

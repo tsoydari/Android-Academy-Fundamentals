@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DetailsFragment">
+    tools:context=".ui.fragments.DetailFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".DetailsFragment">
+        tools:context=".ui.fragments.DetailFragment">
 
         <ImageView
             android:id="@+id/ivDetailsBack"

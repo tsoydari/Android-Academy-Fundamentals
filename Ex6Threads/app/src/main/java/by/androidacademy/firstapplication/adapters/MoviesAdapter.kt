@@ -1,40 +1,46 @@
 package by.androidacademy.firstapplication.adapters
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import by.androidacademy.firstapplication.R
+import by.androidacademy.firstapplication.data.ListMovies
 import by.androidacademy.firstapplication.data.Movie
 
 class MoviesAdapter(
-    context: Context,
     private val movies: List<Movie>,
     private val clickListener: (position: Int) -> Unit
-) : RecyclerView.Adapter<MoviesAdapter.ViewHolder>() {
+) : ListAdapter<Movie, MoviesAdapter.ViewHolder>(DiffCallback) {
+//    RecyclerView.Adapter<MoviesAdapter.ViewHolder>() {
 
-    private val inflater: LayoutInflater = LayoutInflater.from(context)
+    companion object DiffCallback : DiffUtil.ItemCallback<Movie>() {
+        override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+            return oldItem === newItem
+        }
+
+        override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+            return oldItem.title == newItem.title
+        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(
-            inflater.inflate(
-                R.layout.item_movie,
-                parent,
-                false
-            ), clickListener
-        )
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_movie, parent, false)
+        return ViewHolder(view, clickListener)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getMovie(position))
     }
 
     override fun getItemCount(): Int = movies.size
 
-    private fun getItem(position: Int): Movie = movies[position]
+    private fun getMovie(position: Int): Movie = movies[position]
 
     class ViewHolder(
         itemView: View,

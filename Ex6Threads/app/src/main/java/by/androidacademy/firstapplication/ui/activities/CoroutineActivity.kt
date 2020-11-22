@@ -1,11 +1,16 @@
-package by.androidacademy.firstapplication.threads
+package by.androidacademy.firstapplication.ui.activities
 
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import by.androidacademy.firstapplication.R
+import by.androidacademy.firstapplication.threads.CoroutineTask
+import by.androidacademy.firstapplication.threads.CounterFragment
+import by.androidacademy.firstapplication.threads.TaskEventContract
 
-class CoroutineActivity : AppCompatActivity(), TaskEventContract.Lifecycle, TaskEventContract.Operationable {
+class CoroutineActivity : AppCompatActivity(),
+    TaskEventContract.Lifecycle,
+    TaskEventContract.Operationable {
 
     private var coroutineFragment: CounterFragment? = null
     private var coroutineTask: CoroutineTask? = null
@@ -33,7 +38,9 @@ class CoroutineActivity : AppCompatActivity(), TaskEventContract.Lifecycle, Task
     override fun createTask() {
         Toast.makeText(this, getString(R.string.msg_oncreate), Toast.LENGTH_SHORT).show()
 
-        coroutineTask = CoroutineTask(this)
+        coroutineTask = CoroutineTask(
+            this
+        )
             .apply { createTask() }
     }
 
