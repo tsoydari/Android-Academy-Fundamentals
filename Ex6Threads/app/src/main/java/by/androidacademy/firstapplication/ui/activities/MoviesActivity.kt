@@ -14,27 +14,16 @@ class MoviesActivity : AppCompatActivity(R.layout.activity_movies) {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.action_open_coroutine -> {
-                // Open Async Task Activity
-                startActivity(Intent(this, CoroutineActivity::class.java))
-                return true
-            }
-
-            R.id.action_open_thread_handler -> {
-                // Open Thread Handler Activity
-                startActivity(Intent(this, ThreadsActivity::class.java))
-                return true
-            }
+        return when (item.itemId) {
 
             R.id.action_open_new_coroutine -> {
-                startActivity(Intent(this, TaskActivity::class.java))
-                return true
+                startActivity(Intent(this, CoroutinesActivity::class.java))
+                true
             }
 
             else ->
                 // Invoke the superclass to handle it.
-                return super.onOptionsItemSelected(item)
+                super.onOptionsItemSelected(item)
         }
     }
 }

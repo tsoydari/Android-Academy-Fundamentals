@@ -11,7 +11,7 @@ import by.androidacademy.firstapplication.ui.fragments.CounterFragment
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.cancelChildren
 
-class TaskActivity : AppCompatActivity(),
+class CoroutinesActivity : AppCompatActivity(),
     TaskEventContract.Lifecycle,
     TaskEventContract.Operationable {
 

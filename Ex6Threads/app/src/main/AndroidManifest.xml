@@ -19,9 +19,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.activities.CoroutineActivity" />
-        <activity android:name=".ui.activities.ThreadsActivity" />
-        <activity android:name=".ui.activities.TaskActivity" />
+        <activity android:name=".ui.activities.CoroutinesActivity" />
     </application>
 
 </manifest>

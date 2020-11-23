@@ -10,21 +10,11 @@ import kotlinx.android.synthetic.main.fragment_threads.btnCreate
 import kotlinx.android.synthetic.main.fragment_threads.btnStart
 import kotlinx.android.synthetic.main.fragment_threads.tvValue
 
-private const val FRAGMENT_TYPE = "fragment_type"
-
 class CounterFragment : Fragment(R.layout.fragment_threads) {
 
     companion object {
         fun newInstance(fragmentTitle: String): CounterFragment {
-            val fragment =
-                CounterFragment()
-
-            val bundle = Bundle(1).apply {
-                putString(FRAGMENT_TYPE, fragmentTitle)
-            }
-            fragment.arguments = bundle
-
-            return fragment
+            return CounterFragment()
         }
     }
 
@@ -44,10 +34,6 @@ class CounterFragment : Fragment(R.layout.fragment_threads) {
         btnCreate.setOnClickListener { listener?.createTask() }
         btnStart.setOnClickListener { listener?.startTask() }
         btnCancel.setOnClickListener { listener?.cancelTask() }
-
-        //UNPACK OUR DATA FROM OUR BUNDLE
-        val fragmentText = this.arguments?.getString(FRAGMENT_TYPE)
-        tvValue.text = fragmentText
     }
 
     override fun onDetach() {
