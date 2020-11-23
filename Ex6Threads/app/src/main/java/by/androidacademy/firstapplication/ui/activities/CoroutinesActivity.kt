@@ -3,8 +3,12 @@ package by.androidacademy.firstapplication.ui.activities
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import by.androidacademy.firstapplication.R
+import by.androidacademy.firstapplication.threads.CoroutinesViewModel
+import by.androidacademy.firstapplication.threads.CoroutinesViewModelFactory
 import by.androidacademy.firstapplication.threads.CounterCoroutinesTask
 import by.androidacademy.firstapplication.threads.TaskEventContract
 import by.androidacademy.firstapplication.ui.fragments.CounterFragment
@@ -12,11 +16,10 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.cancelChildren
 
 class CoroutinesActivity : AppCompatActivity(),
-    TaskEventContract.Lifecycle,
     TaskEventContract.Operationable {
 
     private val taskFragment: CounterFragment by lazy { CounterFragment.newInstance("Task activity") }
-    private var task: CounterCoroutinesTask? = null
+    private val coroutinesViewModel: CoroutinesViewModel by viewModels { CoroutinesViewModelFactory(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,52 +28,25 @@ class CoroutinesActivity : AppCompatActivity(),
                 .replace(android.R.id.content, taskFragment)
                 .commit()
         }
-    }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        task?.coroutineContext?.cancelChildren()
-        task?.coroutineContext?.cancel()
+        initObservers()
     }
 
     override fun createTask() {
-        Toast.makeText(this, getString(R.string.msg_oncreate), Toast.LENGTH_SHORT).show()
-        if (task == null) {
-            task = CounterCoroutinesTask(this)
-        }
-        task?.createTask()
+        coroutinesViewModel.onCreateTask()
     }
 
     override fun startTask() {
-        val started = task?.start()
-
-        if (started == null || started == false) {
-            Toast.makeText(this, R.string.msg_should_create_task, Toast.LENGTH_SHORT).show()
-        }
+        coroutinesViewModel.onStartTask()
     }
 
     override fun cancelTask() {
-        val canceled = task?.cancel()
-
-        if (canceled == null) {
-            Toast.makeText(this, R.string.msg_should_create_task, Toast.LENGTH_SHORT).show()
-        }
-        task = null
+        coroutinesViewModel.onCancelTask()
     }
 
-    override fun onPreExecute() {
-        taskFragment?.updateFragmentText(getString(R.string.task_created))
-    }
-
-    override fun onPostExecute() {
-        taskFragment?.updateFragmentText(getString(R.string.done))
-    }
-
-    override fun onProgressUpdate(progress: Int) {
-        taskFragment?.updateFragmentText(progress.toString())
-    }
-
-    override fun onCancel() {
-        Toast.makeText(this, getString(R.string.msg_oncancel), Toast.LENGTH_SHORT).show()
+    private fun initObservers() {
+        coroutinesViewModel.textMutableLiveData.observe(this, Observer { text ->
+            taskFragment?.updateFragmentText(text)
+        })
     }
 }
