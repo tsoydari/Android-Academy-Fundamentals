@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import by.androidacademy.firstapplication.R
-import by.androidacademy.firstapplication.threads.CounterFragment
+import by.androidacademy.firstapplication.ui.fragments.CounterFragment
 import by.androidacademy.firstapplication.threads.SimpleAsyncTask
 import by.androidacademy.firstapplication.threads.TaskEventContract
 
@@ -75,10 +75,8 @@ class ThreadsActivity : AppCompatActivity(),
     }
 
     override fun onDestroy() {
-        if (task != null) {
-            task!!.cancel()
-            task = null
-        }
+        task?.cancel()
+        task = null
         super.onDestroy()
     }
 }

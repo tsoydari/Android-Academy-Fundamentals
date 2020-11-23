@@ -1,12 +1,10 @@
-package by.androidacademy.firstapplication.threads
+package by.androidacademy.firstapplication.ui.fragments
 
 import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import by.androidacademy.firstapplication.R
+import by.androidacademy.firstapplication.threads.TaskEventContract
 import kotlinx.android.synthetic.main.fragment_threads.btnCancel
 import kotlinx.android.synthetic.main.fragment_threads.btnCreate
 import kotlinx.android.synthetic.main.fragment_threads.btnStart
@@ -18,7 +16,8 @@ class CounterFragment : Fragment(R.layout.fragment_threads) {
 
     companion object {
         fun newInstance(fragmentTitle: String): CounterFragment {
-            val fragment = CounterFragment()
+            val fragment =
+                CounterFragment()
 
             val bundle = Bundle(1).apply {
                 putString(FRAGMENT_TYPE, fragmentTitle)

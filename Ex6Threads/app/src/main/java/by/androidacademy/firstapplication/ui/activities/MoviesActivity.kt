@@ -27,6 +27,11 @@ class MoviesActivity : AppCompatActivity(R.layout.activity_movies) {
                 return true
             }
 
+            R.id.action_open_new_coroutine -> {
+                startActivity(Intent(this, TaskActivity::class.java))
+                return true
+            }
+
             else ->
                 // Invoke the superclass to handle it.
                 return super.onOptionsItemSelected(item)

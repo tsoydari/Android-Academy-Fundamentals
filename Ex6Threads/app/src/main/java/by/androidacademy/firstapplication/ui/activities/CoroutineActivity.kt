@@ -5,8 +5,10 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import by.androidacademy.firstapplication.R
 import by.androidacademy.firstapplication.threads.CoroutineTask
-import by.androidacademy.firstapplication.threads.CounterFragment
+import by.androidacademy.firstapplication.ui.fragments.CounterFragment
 import by.androidacademy.firstapplication.threads.TaskEventContract
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 
 class CoroutineActivity : AppCompatActivity(),
     TaskEventContract.Lifecycle,
@@ -14,6 +16,7 @@ class CoroutineActivity : AppCompatActivity(),
 
     private var coroutineFragment: CounterFragment? = null
     private var coroutineTask: CoroutineTask? = null
+    private val ioScope = CoroutineScope(Dispatchers.IO)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -53,7 +53,7 @@ class SimpleAsyncTask(private val listener: TaskEventContract.Lifecycle) {
                     runOnUiThread(Runnable { onPostExecute() })
                 }
             }
-            mBackgroundThread!!.start()
+            mBackgroundThread?.start()
         })
     }
 
@@ -67,8 +67,6 @@ class SimpleAsyncTask(private val listener: TaskEventContract.Lifecycle) {
 
     fun cancel() {
         isCancelled = true
-        if (mBackgroundThread != null) {
-            mBackgroundThread!!.interrupt()
-        }
+        mBackgroundThread?.interrupt()
     }
 }

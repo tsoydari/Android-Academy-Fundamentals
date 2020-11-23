@@ -21,6 +21,7 @@
 
         <activity android:name=".ui.activities.CoroutineActivity" />
         <activity android:name=".ui.activities.ThreadsActivity" />
+        <activity android:name=".ui.activities.TaskActivity" />
     </application>
 
 </manifest>
