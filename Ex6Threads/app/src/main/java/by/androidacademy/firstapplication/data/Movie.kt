@@ -13,8 +13,3 @@ data class Movie(
     val releaseDate: String,
     val trailerUrl: String
 ) : Parcelable
-
-@Parcelize
-data class ListMovies(
-    val getMovies: List<Movie>
-): Parcelable
