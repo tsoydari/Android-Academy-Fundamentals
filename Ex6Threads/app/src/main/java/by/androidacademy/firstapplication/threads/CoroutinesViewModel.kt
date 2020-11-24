@@ -1,12 +1,10 @@
 package by.androidacademy.firstapplication.threads
 
-import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import by.androidacademy.firstapplication.R
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.cancelChildren
-import kotlinx.coroutines.isActive
 
 class CoroutinesViewModel(val stringsProvider: StringsProvider): ViewModel() {
 

@@ -23,24 +23,9 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
         val movies = DataStorage.getMoviesList()
         val adapter = MoviesAdapter(movies) { position ->
             moviesViewModel.displayPropertyDetails(movies[position])
-
-//            requireView().findNavController().navigate(
-//                actionMoviesFragmentToDetailsFragment(
-//                    movies[position]
-//                )
-//            )
-//            view.findNavController().navigate(R.id.action_moviesFragment_to_detailsFragment)
         }
-
         rvMoviesList.adapter = adapter
-
         initObservers()
-
-//        val decoration = DividerItemDecoration(requireContext(), DividerItemDecoration.HORIZONTAL)
-//        ContextCompat.getDrawable(requireContext(),
-//            R.color.grey
-//        )?.run{decoration.setDrawable(this)}
-//        rvMoviesList.addItemDecoration(decoration)
     }
 
     private fun initObservers() {

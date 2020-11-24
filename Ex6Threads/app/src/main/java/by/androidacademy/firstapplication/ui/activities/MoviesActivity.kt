@@ -1,9 +1,11 @@
 package by.androidacademy.firstapplication.ui.activities
 
-import android.content.Intent
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
+import androidx.navigation.ui.NavigationUI
 import by.androidacademy.firstapplication.R
 
 class MoviesActivity : AppCompatActivity(R.layout.activity_movies) {
@@ -14,16 +16,7 @@ class MoviesActivity : AppCompatActivity(R.layout.activity_movies) {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-
-            R.id.action_open_new_coroutine -> {
-                startActivity(Intent(this, CoroutinesActivity::class.java))
-                true
-            }
-
-            else ->
-                // Invoke the superclass to handle it.
+        return NavigationUI.onNavDestinationSelected(item, Navigation.findNavController(this, R.id.nav_host_fragment)) ||
                 super.onOptionsItemSelected(item)
-        }
     }
 }

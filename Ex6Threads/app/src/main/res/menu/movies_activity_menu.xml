@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_open_new_coroutine"
+        android:id="@+id/coroutinesFragment"
         android:title="Open test Task Activity"
         app:showAsAction="never" />
 </menu>

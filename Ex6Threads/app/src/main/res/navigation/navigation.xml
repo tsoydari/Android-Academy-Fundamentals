@@ -25,4 +25,9 @@
             android:id="@+id/action_detailsFragment_to_moviesFragment"
             app:destination="@id/moviesFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/coroutinesFragment"
+        android:name="by.androidacademy.firstapplication.ui.fragments.CoroutinesFragment"
+        android:label="fragment_threads"
+        tools:layout="@layout/fragment_threads" />
 </navigation>
