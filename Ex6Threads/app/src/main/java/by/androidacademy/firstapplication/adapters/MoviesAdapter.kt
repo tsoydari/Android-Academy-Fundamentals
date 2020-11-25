@@ -9,11 +9,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import by.androidacademy.firstapplication.R
-import by.androidacademy.firstapplication.data.ListMovies
 import by.androidacademy.firstapplication.data.Movie
 
 class MoviesAdapter(
-    private val movies: List<Movie>,
+    var movies: List<Movie>,
     private val clickListener: (position: Int) -> Unit
 ) : ListAdapter<Movie, MoviesAdapter.ViewHolder>(DiffCallback) {
 //    RecyclerView.Adapter<MoviesAdapter.ViewHolder>() {
@@ -61,7 +60,8 @@ class MoviesAdapter(
         }
 
         fun bind(movie: Movie) {
-            poster.setImageResource(movie.posterRes)
+//            poster.setImageResource(movie.posterRes)
+            poster.setImageResource(R.drawable.interstellar)
             title.text = movie.title
             overview.text = movie.overview
         }

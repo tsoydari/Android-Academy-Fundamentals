@@ -24,16 +24,16 @@ class DetailFragment : Fragment(R.layout.fragment_details) {
     }
 
     private fun initObservers() {
-        detailViewModel.movie.observe(viewLifecycleOwner, Observer { movie ->
-            movie?.run{
-                ivDetailsBack.setImageResource(backdropRes)
-                ivDetailsImage.setImageResource(posterRes)
-                tvDetailsTitle.text = title
-                tvDetailsReleasedDate.text = releaseDate
-                tvDetailsOverviewText.text = overview
-                url = trailerUrl
-            }
-        })
+//        detailViewModel.movie.observe(viewLifecycleOwner, Observer { movie ->
+//            movie?.run{
+//                ivDetailsBack.setImageResource(backdropRes)
+//                ivDetailsImage.setImageResource(posterRes)
+//                tvDetailsTitle.text = title
+//                tvDetailsReleasedDate.text = releaseDate
+//                tvDetailsOverviewText.text = overview
+//                url = trailerUrl
+//            }
+//        })
     }
 
     private fun initListeners() {
