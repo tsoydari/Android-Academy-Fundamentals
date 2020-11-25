@@ -10,16 +10,16 @@ import by.androidacademy.firstapplication.db.VideoDao
 class MoviesRepository(
     private val tmdbServiceApi: TmdbServiceApi,
     private val tmdbServiceMapper: TmdbServiceMapper,
-    private val movieDao: MovieDao,
-    private val videoDao: VideoDao
+    private val movieDao: MovieDao?,
+    private val videoDao: VideoDao?
 ) {
 
     suspend fun getPopularMovies(): List<Movie> {
         val popularMoviesDto = tmdbServiceApi.getPopularMovies()
         val movies = tmdbServiceMapper.map(popularMoviesDto)
 
-        movieDao.deleteAll()
-        movieDao.insertAll(movies)
+        movieDao?.deleteAll()
+        movieDao?.insertAll(movies)
 
         return movies
     }
@@ -28,22 +28,22 @@ class MoviesRepository(
         val movieVideosDto = tmdbServiceApi.getMovieVideos(movie.id)
         val url = tmdbServiceMapper.mapTrailerUrl(movieVideosDto.results.first())
 
-        videoDao.insert(Video(movie.id, url))
+        videoDao?.insert(Video(movie.id, url))
 
         return url
     }
 
     fun getCachedPopularMovies(): List<Movie> {
-        return movieDao.getAll()
+        return movieDao?.getAll() ?: emptyList()
     }
 
     fun getCachedMovieTrailerUrl(movie: Movie): String? {
-        val video = videoDao.getVideoByMovieId(movie.id)
+        val video = videoDao?.getVideoByMovieId(movie.id)
         return video?.url
     }
 
     fun deleteCachedData() {
-        movieDao.deleteAll()
-        videoDao.deleteAll()
+        movieDao?.deleteAll()
+        videoDao?.deleteAll()
     }
 }

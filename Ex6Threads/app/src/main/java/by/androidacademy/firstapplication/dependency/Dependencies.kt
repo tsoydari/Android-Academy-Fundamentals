@@ -13,12 +13,17 @@ import retrofit2.create
 
 object Dependencies {
 
+    private val db by lazy { App.getDatabase() }
+
     val moviesRepository by lazy {
         createMoviesRepository()
     }
 
     private fun createMoviesRepository(): MoviesRepository {
-        return MoviesRepository(createTmdbServiceApi(), createTmdbServiceMapper())
+        return MoviesRepository(createTmdbServiceApi(),
+            createTmdbServiceMapper(),
+            db?.movieDao(),
+            db?.videoDao())
     }
 
     private fun createTmdbServiceApi(): TmdbServiceApi {
