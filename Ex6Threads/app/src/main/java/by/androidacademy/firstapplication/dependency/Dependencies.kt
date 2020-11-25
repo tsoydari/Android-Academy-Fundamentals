@@ -1,6 +1,9 @@
 package by.androidacademy.firstapplication.dependency
 
+import androidx.room.Room
+import by.androidacademy.firstapplication.App
 import by.androidacademy.firstapplication.api.TmdbServiceApi
+import by.androidacademy.firstapplication.db.AppDatabase
 import by.androidacademy.firstapplication.repository.MoviesRepository
 import by.androidacademy.firstapplication.repository.TmdbServiceMapper
 import retrofit2.Retrofit
