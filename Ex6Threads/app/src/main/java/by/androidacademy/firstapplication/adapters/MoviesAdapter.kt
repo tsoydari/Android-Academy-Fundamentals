@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import by.androidacademy.firstapplication.R
 import by.androidacademy.firstapplication.data.Movie
+import coil.api.load
 
 class MoviesAdapter(
     var movies: List<Movie>,
@@ -60,8 +61,7 @@ class MoviesAdapter(
         }
 
         fun bind(movie: Movie) {
-//            poster.setImageResource(movie.posterRes)
-            poster.setImageResource(R.drawable.interstellar)
+            poster.load(movie.posterUrl)
             title.text = movie.title
             overview.text = movie.overview
         }

@@ -46,15 +46,15 @@ class MoviesViewModel(
         }
     }
 
+    private fun initAdapter() = MoviesAdapter(movies.value ?: emptyList() ) { position ->
+        movies.value?.get(position)?.let { displayPropertyDetails(it) }
+    }
+
     fun displayPropertyDetails(movieProperty: Movie) {
         navigateToSelectedProperty.postValue(movieProperty)
     }
 
     fun displayPropertyDetailsComplete() {
         navigateToSelectedProperty.postValue(null)
-    }
-
-    private fun initAdapter() = MoviesAdapter(movies.value ?: emptyList() ) { position ->
-        movies.value?.get(position)?.let { displayPropertyDetails(it) }
     }
 }
