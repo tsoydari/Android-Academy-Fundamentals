@@ -71,4 +71,8 @@ dependencies {
 
     // Image
     implementation "io.coil-kt:coil:0.8.0"
+
+    // Database
+    implementation "androidx.room:room-runtime:2.2.5"
+    kapt "androidx.room:room-compiler:2.2.5"
 }
