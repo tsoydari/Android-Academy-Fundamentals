@@ -19,16 +19,10 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
     private val moviesViewModel: MoviesViewModel by viewModels {
                 MoviesViewModelFactory(Dependencies.moviesRepository, requireActivity().application)}
 
-    //private val adapter by lazy { initAdapter() }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         rvMoviesList.adapter = moviesViewModel.adapter
         initObservers()
-    }
-
-    private fun initAdapter() = MoviesAdapter(moviesViewModel.movies.value ?: emptyList() ) { position ->
-        moviesViewModel.movies.value?.get(position)?.let { moviesViewModel.displayPropertyDetails(it) }
     }
 
     private fun initObservers() {

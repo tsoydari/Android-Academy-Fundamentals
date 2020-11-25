@@ -28,11 +28,21 @@ class MoviesViewModel(
             try {
                 isProgressBarVisibleMutableLiveData.postValue(true)
 
-                val moviesFromRep = withContext(Dispatchers.IO) {
-                    moviesRepository.getPopularMovies()
+                val cachedMovies = withContext(Dispatchers.Default) {
+                    moviesRepository.getCachedPopularMovies()
+                }
+                if (cachedMovies.isNotEmpty()) {
+                    movies.postValue(cachedMovies)
+                    isProgressBarVisibleMutableLiveData.postValue(false)
                 }
 
-                movies.postValue(moviesFromRep)
+                try {
+                    val moviesUpdate = withContext(Dispatchers.IO) { moviesRepository.getPopularMovies() }
+                    movies.postValue(moviesUpdate)
+                } catch (error: Throwable) {
+                    errorMutableLiveData.postValue(app.getString(R.string.error_load_movies_no_network))
+                }
+
             } catch (error: Throwable) {
                 errorMutableLiveData.postValue(
                     app.getString(
