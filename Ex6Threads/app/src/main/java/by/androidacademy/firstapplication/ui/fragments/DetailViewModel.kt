@@ -1,20 +1,20 @@
 package by.androidacademy.firstapplication.ui.fragments
 
 import android.app.Application
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import by.androidacademy.firstapplication.R
 import by.androidacademy.firstapplication.data.Movie
 import by.androidacademy.firstapplication.repository.MoviesRepository
+import by.androidacademy.firstapplication.utils.SingleEventLiveData
 import kotlinx.coroutines.launch
 
 class DetailViewModel(private val moviesRepository: MoviesRepository,
                       private val movieDetail: Movie,
                       private val app: Application): ViewModel() {
 
-    val trailerUrl = MutableLiveData<String>()
-    val errorEvent = MutableLiveData<String>()
+    val trailerUrl = SingleEventLiveData<String>()
+    val errorEvent = SingleEventLiveData<String>()
 
     fun onTrailerButtonClicked() {
         viewModelScope.launch {

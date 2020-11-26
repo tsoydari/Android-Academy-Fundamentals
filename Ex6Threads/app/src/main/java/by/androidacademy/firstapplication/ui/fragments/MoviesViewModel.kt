@@ -8,6 +8,7 @@ import by.androidacademy.firstapplication.R
 import by.androidacademy.firstapplication.adapters.MoviesAdapter
 import by.androidacademy.firstapplication.data.Movie
 import by.androidacademy.firstapplication.dependency.Dependencies
+import by.androidacademy.firstapplication.utils.SingleEventLiveData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -15,10 +16,10 @@ class MoviesViewModel(
     app: Application
 ) : AndroidViewModel(app) {
 
-    val navigateToSelectedProperty = MutableLiveData<Movie>()
+    val navigateToSelectedProperty = SingleEventLiveData<Movie>()
     val isProgressBarVisibleMutableLiveData = MutableLiveData<Boolean>()
-    val errorMutableLiveData = MutableLiveData<String>()
-    val movies = MutableLiveData<List<Movie>>()
+    val errorMutableLiveData = SingleEventLiveData<String>()
+    val movies = SingleEventLiveData<List<Movie>>()
     val adapter by lazy { initAdapter() }
 
     init {
