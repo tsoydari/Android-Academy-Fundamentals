@@ -8,15 +8,11 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "movies.db")
-            .allowMainThreadQueries().build()
+        instance = this
     }
 
     companion object {
-        var db: AppDatabase? = null
-        fun getDatabase(): AppDatabase? {
-            return db
-        }
+        var instance: Application? = null
 
     }
 }
