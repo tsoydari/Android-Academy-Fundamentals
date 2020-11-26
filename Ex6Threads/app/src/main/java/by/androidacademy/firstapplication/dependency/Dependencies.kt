@@ -2,6 +2,9 @@ package by.androidacademy.firstapplication.dependency
 
 import androidx.room.Room
 import by.androidacademy.firstapplication.App
+import by.androidacademy.firstapplication.androidservices.HeavyWorkerManager
+import by.androidacademy.firstapplication.androidservices.ServiceViewModelState
+import by.androidacademy.firstapplication.androidservices.WorkerParamsRequest
 import by.androidacademy.firstapplication.api.TmdbServiceApi
 import by.androidacademy.firstapplication.db.AppDatabase
 import by.androidacademy.firstapplication.repository.MoviesRepository
@@ -18,6 +21,14 @@ object Dependencies {
         createMoviesRepository()
     }
 
+    val heavyWorkManager by lazy {
+        createHeavyWorkManager()
+    }
+
+    val workerParamsRequest by lazy {
+        createWorkerParamsRequest()
+    }
+
     private fun createDataBase() = App.instance?.let {
         Room.databaseBuilder(
             it,
@@ -25,6 +36,10 @@ object Dependencies {
             "movies.db"
         ).build()
     }
+
+    private fun createHeavyWorkManager() = HeavyWorkerManager()
+
+    private fun createWorkerParamsRequest() = WorkerParamsRequest()
 
     private fun createMoviesRepository(): MoviesRepository {
         return MoviesRepository(
@@ -44,4 +59,6 @@ object Dependencies {
             .addConverterFactory(MoshiConverterFactory.create())
             .build()
     }
+
+    fun serviceViewModelState() = ServiceViewModelState()
 }

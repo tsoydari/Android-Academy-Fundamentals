@@ -11,7 +11,6 @@ import androidx.lifecycle.Observer
 import by.androidacademy.firstapplication.R
 import by.androidacademy.firstapplication.data.Movie
 import by.androidacademy.firstapplication.dependency.Dependencies
-import by.androidacademy.firstapplication.ui.fragments.detail.DetailFragmentArgs
 import coil.api.load
 import kotlinx.android.synthetic.main.fragment_details.*
 

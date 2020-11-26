@@ -8,7 +8,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import by.androidacademy.firstapplication.R
-import by.androidacademy.firstapplication.ui.fragments.start.MoviesFragmentDirections
 import kotlinx.android.synthetic.main.fragment_movies.*
 
 class MoviesFragment : Fragment(R.layout.fragment_movies) {
