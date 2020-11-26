@@ -1,4 +1,4 @@
-package by.androidacademy.firstapplication.ui.fragments
+package by.androidacademy.firstapplication.ui.fragments.detail
 
 import android.content.Intent
 import android.net.Uri
@@ -11,15 +11,23 @@ import androidx.lifecycle.Observer
 import by.androidacademy.firstapplication.R
 import by.androidacademy.firstapplication.data.Movie
 import by.androidacademy.firstapplication.dependency.Dependencies
+import by.androidacademy.firstapplication.ui.fragments.detail.DetailFragmentArgs
 import coil.api.load
 import kotlinx.android.synthetic.main.fragment_details.*
 
 class DetailFragment : Fragment(R.layout.fragment_details) {
 
-    private val movieDetail: Movie by lazy { DetailFragmentArgs.fromBundle(requireArguments()).movieDetail }
+    private val movieDetail: Movie by lazy { DetailFragmentArgs.fromBundle(
+        requireArguments()
+    ).movieDetail }
     private val detailViewModel: DetailViewModel
             by viewModels {
-                DetailViewModelFactory(Dependencies.moviesRepository, movieDetail, requireActivity().application)}
+                DetailViewModelFactory(
+                    Dependencies.moviesRepository,
+                    movieDetail,
+                    requireActivity().application
+                )
+            }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

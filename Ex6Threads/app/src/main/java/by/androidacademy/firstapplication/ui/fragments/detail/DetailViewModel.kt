@@ -1,4 +1,4 @@
-package by.androidacademy.firstapplication.ui.fragments
+package by.androidacademy.firstapplication.ui.fragments.detail
 
 import android.app.Application
 import androidx.lifecycle.ViewModel

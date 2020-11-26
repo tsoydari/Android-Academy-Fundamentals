@@ -1,9 +1,8 @@
-package by.androidacademy.firstapplication.ui.fragments
+package by.androidacademy.firstapplication.ui.fragments.start
 
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import by.androidacademy.firstapplication.repository.MoviesRepository
 
 class MoviesViewModelFactory(
     private val application: Application
@@ -11,7 +10,9 @@ class MoviesViewModelFactory(
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(MoviesViewModel::class.java)) {
-            return MoviesViewModel(application) as T
+            return MoviesViewModel(
+                application
+            ) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

@@ -6,7 +6,7 @@
     app:startDestination="@id/moviesFragment">
     <fragment
         android:id="@+id/moviesFragment"
-        android:name="by.androidacademy.firstapplication.ui.fragments.MoviesFragment"
+        android:name="by.androidacademy.firstapplication.ui.fragments.start.MoviesFragment"
         android:label="fragment_movies"
         tools:layout="@layout/fragment_movies" >
         <action
@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"
-        android:name="by.androidacademy.firstapplication.ui.fragments.DetailFragment"
+        android:name="by.androidacademy.firstapplication.ui.fragments.detail.DetailFragment"
         android:label="fragment_details"
         tools:layout="@layout/fragment_details" >
         <argument
@@ -27,7 +27,12 @@
     </fragment>
     <fragment
         android:id="@+id/coroutinesFragment"
-        android:name="by.androidacademy.firstapplication.ui.fragments.CoroutinesFragment"
+        android:name="by.androidacademy.firstapplication.ui.fragments.coroutine.CoroutinesFragment"
         android:label="fragment_threads"
         tools:layout="@layout/fragment_threads" />
+    <fragment
+        android:id="@+id/serviceFragment"
+        android:name="by.androidacademy.firstapplication.ui.fragments.service.ServiceFragment"
+        android:label="fragment_bg_service"
+        tools:layout="@layout/fragment_bg_service" />
 </navigation>

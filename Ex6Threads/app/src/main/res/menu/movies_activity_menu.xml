@@ -6,4 +6,9 @@
         android:id="@+id/coroutinesFragment"
         android:title="Open test Task Activity"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/serviceFragment"
+        android:title="@string/menu_open_background_service_activity"
+        android:icon="@android:drawable/ic_menu_manage"
+        app:showAsAction="never" />
 </menu>

@@ -1,11 +1,10 @@
-package by.androidacademy.firstapplication.ui.fragments
+package by.androidacademy.firstapplication.ui.fragments.detail
 
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import by.androidacademy.firstapplication.data.Movie
 import by.androidacademy.firstapplication.repository.MoviesRepository
-import by.androidacademy.firstapplication.threads.StringsProvider
 
 class DetailViewModelFactory(
     private val moviesRepository: MoviesRepository,
@@ -15,7 +14,11 @@ class DetailViewModelFactory(
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(DetailViewModel::class.java)) {
-            return DetailViewModel(moviesRepository, movieDetail, application) as T
+            return DetailViewModel(
+                moviesRepository,
+                movieDetail,
+                application
+            ) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

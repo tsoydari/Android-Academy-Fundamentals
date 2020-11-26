@@ -1,4 +1,4 @@
-package by.androidacademy.firstapplication.ui.fragments
+package by.androidacademy.firstapplication.ui.fragments.coroutine
 
 import android.os.Bundle
 import android.view.View

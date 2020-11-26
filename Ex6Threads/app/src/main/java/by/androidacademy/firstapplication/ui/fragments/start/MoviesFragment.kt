@@ -1,23 +1,23 @@
-package by.androidacademy.firstapplication.ui.fragments
+package by.androidacademy.firstapplication.ui.fragments.start
 
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import by.androidacademy.firstapplication.R
-import by.androidacademy.firstapplication.adapters.MoviesAdapter
-import by.androidacademy.firstapplication.data.Movie
-import by.androidacademy.firstapplication.dependency.Dependencies
+import by.androidacademy.firstapplication.ui.fragments.start.MoviesFragmentDirections
 import kotlinx.android.synthetic.main.fragment_movies.*
 
 class MoviesFragment : Fragment(R.layout.fragment_movies) {
 
     private val moviesViewModel: MoviesViewModel by viewModels {
-                MoviesViewModelFactory(requireActivity().application)}
+        MoviesViewModelFactory(
+            requireActivity().application
+        )
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -28,7 +28,11 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
     private fun initObservers() {
         moviesViewModel.navigateToSelectedProperty.observe(viewLifecycleOwner, Observer { movie ->
             movie?.run {
-                requireView().findNavController().navigate(MoviesFragmentDirections.actionMoviesFragmentToDetailsFragment(this))
+                requireView().findNavController().navigate(
+                    MoviesFragmentDirections.actionMoviesFragmentToDetailsFragment(
+                        this
+                    )
+                )
                 moviesViewModel.displayPropertyDetailsComplete()
             }
         })
