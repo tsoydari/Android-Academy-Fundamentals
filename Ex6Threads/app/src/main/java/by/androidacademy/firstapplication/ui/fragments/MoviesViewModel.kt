@@ -8,10 +8,8 @@ import by.androidacademy.firstapplication.R
 import by.androidacademy.firstapplication.adapters.MoviesAdapter
 import by.androidacademy.firstapplication.data.Movie
 import by.androidacademy.firstapplication.dependency.Dependencies
-import by.androidacademy.firstapplication.repository.MoviesRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class MoviesViewModel(
     app: Application

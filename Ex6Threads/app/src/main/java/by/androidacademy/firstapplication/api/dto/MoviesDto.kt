@@ -1,5 +1,6 @@
 package by.androidacademy.firstapplication.api.dto
 
+import by.androidacademy.firstapplication.data.Movie
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
@@ -33,3 +34,21 @@ data class MovieVideosDto(
 data class PopularMoviesDto(
     val results: List<MovieDto>
 )
+
+private const val POSTER_BASE_URL = "https://image.tmdb.org/t/p/w342"
+private const val BACKDROP_BASE_URL = "https://image.tmdb.org/t/p/w780"
+private const val YOUTUBE_BASE_URL = "https://www.youtube.com/watch?v="
+
+fun PopularMoviesDto.toListMovie(): List<Movie> = results.mapIndexed { index, movieDto ->
+    Movie(
+        id = movieDto.id,
+        title = movieDto.title,
+        posterUrl = POSTER_BASE_URL + movieDto.posterPath,
+        backdropUrl = BACKDROP_BASE_URL + movieDto.backdropPath,
+        overview = movieDto.overview,
+        releaseDate = movieDto.releaseDate,
+        popularity = index
+    )
+}
+
+fun MovieVideoDto.toString(): String = YOUTUBE_BASE_URL + key
