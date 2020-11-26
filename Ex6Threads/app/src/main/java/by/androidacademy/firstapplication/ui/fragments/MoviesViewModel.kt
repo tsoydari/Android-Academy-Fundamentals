@@ -24,20 +24,18 @@ class MoviesViewModel(
     val adapter by lazy { initAdapter() }
 
     init {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             try {
                 isProgressBarVisibleMutableLiveData.postValue(true)
 
-                val cachedMovies = withContext(Dispatchers.Default) {
-                    Dependencies.moviesRepository.getCachedPopularMovies()
-                }
+                val cachedMovies = Dependencies.moviesRepository.getCachedPopularMovies()
                 if (cachedMovies.isNotEmpty()) {
                     movies.postValue(cachedMovies)
                     isProgressBarVisibleMutableLiveData.postValue(false)
                 }
 
                 try {
-                    val moviesUpdate = withContext(Dispatchers.IO) { Dependencies.moviesRepository.getPopularMovies() }
+                    val moviesUpdate = Dependencies.moviesRepository.getPopularMovies()
                     movies.postValue(moviesUpdate)
                 } catch (error: Throwable) {
                     errorMutableLiveData.postValue(app.getString(R.string.error_load_movies_no_network))
