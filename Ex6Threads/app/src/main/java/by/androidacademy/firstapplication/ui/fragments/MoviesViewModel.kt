@@ -7,13 +7,13 @@ import androidx.lifecycle.viewModelScope
 import by.androidacademy.firstapplication.R
 import by.androidacademy.firstapplication.adapters.MoviesAdapter
 import by.androidacademy.firstapplication.data.Movie
+import by.androidacademy.firstapplication.dependency.Dependencies
 import by.androidacademy.firstapplication.repository.MoviesRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class MoviesViewModel(
-    private val moviesRepository: MoviesRepository,
     app: Application
 ) : AndroidViewModel(app) {
 
@@ -29,7 +29,7 @@ class MoviesViewModel(
                 isProgressBarVisibleMutableLiveData.postValue(true)
 
                 val cachedMovies = withContext(Dispatchers.Default) {
-                    moviesRepository.getCachedPopularMovies()
+                    Dependencies.moviesRepository.getCachedPopularMovies()
                 }
                 if (cachedMovies.isNotEmpty()) {
                     movies.postValue(cachedMovies)
@@ -37,7 +37,7 @@ class MoviesViewModel(
                 }
 
                 try {
-                    val moviesUpdate = withContext(Dispatchers.IO) { moviesRepository.getPopularMovies() }
+                    val moviesUpdate = withContext(Dispatchers.IO) { Dependencies.moviesRepository.getPopularMovies() }
                     movies.postValue(moviesUpdate)
                 } catch (error: Throwable) {
                     errorMutableLiveData.postValue(app.getString(R.string.error_load_movies_no_network))

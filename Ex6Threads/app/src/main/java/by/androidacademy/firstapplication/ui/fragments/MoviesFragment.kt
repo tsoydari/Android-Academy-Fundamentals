@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.fragment_movies.*
 class MoviesFragment : Fragment(R.layout.fragment_movies) {
 
     private val moviesViewModel: MoviesViewModel by viewModels {
-                MoviesViewModelFactory(Dependencies.moviesRepository, requireActivity().application)}
+                MoviesViewModelFactory(requireActivity().application)}
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
