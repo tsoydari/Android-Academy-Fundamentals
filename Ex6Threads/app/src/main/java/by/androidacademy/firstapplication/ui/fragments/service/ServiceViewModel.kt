@@ -38,6 +38,7 @@ class ServiceViewModel(
     }
 
     private fun resetState() {
+        viewModelState.isEnableButton(true)
         cancelWork()
         heavyWorkManager.run {
             resetProgress()

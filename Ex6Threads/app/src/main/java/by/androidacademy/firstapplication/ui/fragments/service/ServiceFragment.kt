@@ -32,12 +32,11 @@ class ServiceFragment : Fragment(R.layout.fragment_bg_service) {
 
         btnWorker.setOnClickListener {
             setSateForBtn(false)
-            serviceViewModel?.run {
-                getWorker().run {
-                    enqueue()
-                    subscribeToUpdateWorker(this)
-                }
+            serviceViewModel.getWorker().run {
+                enqueue()
+                subscribeToUpdateWorker(this)
             }
+
         }
     }
 
@@ -61,14 +60,13 @@ class ServiceFragment : Fragment(R.layout.fragment_bg_service) {
 
     private fun setSateForBtn(isEnable: Boolean) {
         btnWorker.isEnabled = isEnable
+        btnIntentService.isEnabled = isEnable
+        btnService.isEnabled = isEnable
     }
 
     private fun subscribeToUpdateWorker(params: WorkerParamsRequest) {
-        activity?.run {
-            params.workManagerInfo()?.observe(viewLifecycleOwner, Observer { workInfo ->
-                    Toast.makeText(this, workInfo.state.name, Toast.LENGTH_SHORT).show()
+        params.workManagerInfo()?.observe(viewLifecycleOwner, Observer { workInfo ->
+                    Toast.makeText(requireContext(), workInfo.state.name, Toast.LENGTH_SHORT).show()
                 })
-        }
     }
-
 }

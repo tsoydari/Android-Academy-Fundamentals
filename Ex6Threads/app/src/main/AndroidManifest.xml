@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="by.androidacademy.firstapplication">
 
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:name=".App"
         android:allowBackup="false"

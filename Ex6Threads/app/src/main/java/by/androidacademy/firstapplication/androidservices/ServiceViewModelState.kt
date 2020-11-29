@@ -13,4 +13,6 @@ class ServiceViewModelState {
     fun setProgress(progressData: Int) = this.progressData.postValue(progressData)
 
     fun isButtonsEnable(): LiveData<Boolean> = isEnableButton
+
+    fun isEnableButton(isEnableButton: Boolean) = this.isEnableButton.postValue(isEnableButton)
 }
