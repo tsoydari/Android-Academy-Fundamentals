@@ -5,6 +5,7 @@ import android.content.Context.NOTIFICATION_SERVICE
 import androidx.room.Room
 import by.androidacademy.firstapplication.App
 import by.androidacademy.firstapplication.androidservices.HeavyWorkerManager
+import by.androidacademy.firstapplication.androidservices.ServiceDelegate
 import by.androidacademy.firstapplication.androidservices.ServiceViewModelState
 import by.androidacademy.firstapplication.androidservices.WorkerParamsRequest
 import by.androidacademy.firstapplication.api.TmdbServiceApi
@@ -29,6 +30,10 @@ object Dependencies {
         createHeavyWorkManager()
     }
 
+    val serviceDelegate by lazy {
+        createServiceDelegate()
+    }
+
     val notificationsManager by lazy {
         createNotificationsManager()
     }
@@ -48,6 +53,8 @@ object Dependencies {
     }
 
     private fun createHeavyWorkManager() = HeavyWorkerManager()
+
+    private fun createServiceDelegate() = ServiceDelegate()
 
     private fun createNotificationsManager(): NotificationsManager? {
         return App.instance?.let { application ->

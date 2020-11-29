@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import by.androidacademy.firstapplication.R
+import by.androidacademy.firstapplication.androidservices.ServiceDelegate
 import by.androidacademy.firstapplication.androidservices.WorkerParamsRequest
 import by.androidacademy.firstapplication.dependency.Dependencies
 import kotlinx.android.synthetic.main.fragment_bg_service.*
@@ -20,12 +21,19 @@ class ServiceFragment : Fragment(R.layout.fragment_bg_service) {
     private val serviceViewModel: ServiceViewModel by viewModels {
         ServiceViewModelFactory( Dependencies.heavyWorkManager,
         Dependencies.serviceViewModelState(),
-        Dependencies.workerParamsRequest)}
+        Dependencies.workerParamsRequest) }
+
+    private val serviceDelegate: ServiceDelegate = Dependencies.serviceDelegate
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initListeners()
         initObservers()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        serviceDelegate.stopAllService(requireContext())
     }
 
     private fun initListeners() {
@@ -36,7 +44,10 @@ class ServiceFragment : Fragment(R.layout.fragment_bg_service) {
                 enqueue()
                 subscribeToUpdateWorker(this)
             }
+        }
 
+        btnIntentService.setOnClickListener {
+            serviceDelegate.startDownloadIntentService(requireContext(), true)
         }
     }
 
@@ -48,6 +59,17 @@ class ServiceFragment : Fragment(R.layout.fragment_bg_service) {
 
             isButtonsEnable().observe(viewLifecycleOwner, Observer {
                 setSateForBtn(it)
+            })
+
+            isEnableDownloadIntentService().observe(viewLifecycleOwner, Observer { isEnable ->
+                if (!isEnable) {
+                    stopDownloadIntentService()
+                }
+            })
+            isEnableDownloadJobIntentService().observe(viewLifecycleOwner, Observer { isEnable ->
+                if (!isEnable) {
+                    stopDownloadJobIntentService()
+                }
             })
         }
     }
@@ -68,5 +90,13 @@ class ServiceFragment : Fragment(R.layout.fragment_bg_service) {
         params.workManagerInfo()?.observe(viewLifecycleOwner, Observer { workInfo ->
                     Toast.makeText(requireContext(), workInfo.state.name, Toast.LENGTH_SHORT).show()
                 })
+    }
+
+    private fun stopDownloadIntentService() {
+        serviceDelegate.stopDownloadIntentService(requireContext())
+    }
+
+    private fun stopDownloadJobIntentService() {
+        serviceDelegate.stopDownloadJobIntentService(requireContext())
     }
 }

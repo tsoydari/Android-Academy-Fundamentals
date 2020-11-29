@@ -61,4 +61,10 @@ class ServiceViewModel(
     fun downloadProgress(): LiveData<Int> = viewModelState.downloadProgress()
 
     fun isButtonsEnable(): LiveData<Boolean> = viewModelState.isButtonsEnable()
+
+    fun isEnableDownloadIntentService(): LiveData<Boolean> =
+            viewModelState.isEnableDownloadIntentService()
+
+    fun isEnableDownloadJobIntentService(): LiveData<Boolean> =
+            viewModelState.isEnableDownloadJobIntentService()
 }
