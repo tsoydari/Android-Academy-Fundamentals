@@ -1,5 +1,7 @@
 package by.androidacademy.firstapplication.dependency
 
+import android.app.NotificationManager
+import android.content.Context.NOTIFICATION_SERVICE
 import androidx.room.Room
 import by.androidacademy.firstapplication.App
 import by.androidacademy.firstapplication.androidservices.HeavyWorkerManager
@@ -8,6 +10,8 @@ import by.androidacademy.firstapplication.androidservices.WorkerParamsRequest
 import by.androidacademy.firstapplication.api.TmdbServiceApi
 import by.androidacademy.firstapplication.db.AppDatabase
 import by.androidacademy.firstapplication.repository.MoviesRepository
+import by.androidacademy.firstapplication.utils.NotificationsManager
+import by.androidacademy.firstapplication.utils.ResourceManager
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.create
@@ -25,6 +29,10 @@ object Dependencies {
         createHeavyWorkManager()
     }
 
+    val notificationsManager by lazy {
+        createNotificationsManager()
+    }
+
     val workerParamsRequest by lazy {
         createWorkerParamsRequest()
     }
@@ -40,6 +48,16 @@ object Dependencies {
     }
 
     private fun createHeavyWorkManager() = HeavyWorkerManager()
+
+    private fun createNotificationsManager(): NotificationsManager? {
+        return App.instance?.let { application ->
+            NotificationsManager(
+                    application,
+                    ResourceManager(application),
+                    application.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+            )
+        }
+    }
 
     private fun createWorkerParamsRequest() = WorkerParamsRequest()
 

@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import by.androidacademy.firstapplication.dependency.Dependencies
+import by.androidacademy.firstapplication.utils.NotificationsManager
 
 
 class WorkerManagerDelegate(
@@ -12,9 +13,11 @@ class WorkerManagerDelegate(
 ) : Worker(context, params) {
 
     private val heavyWorkManager: HeavyWorkerManager = Dependencies.heavyWorkManager
+    private val notificationsManager: NotificationsManager? = Dependencies.notificationsManager
 
     override fun doWork(): Result {
         return try {
+            notificationsManager?.showNotification()
             heavyWorkManager.startWork()
             Thread.sleep(DELAY_VALUE)
             Result.success()
@@ -26,5 +29,10 @@ class WorkerManagerDelegate(
                 Result.failure()
             }
         }
+    }
+
+    override fun onStopped() {
+        super.onStopped()
+        notificationsManager?.hideNotification()
     }
 }

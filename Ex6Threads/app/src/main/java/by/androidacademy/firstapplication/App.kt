@@ -12,7 +12,7 @@ class App : Application() {
     }
 
     companion object {
-        var instance: Application? = null
+        var instance: App? = null
 
     }
 }
