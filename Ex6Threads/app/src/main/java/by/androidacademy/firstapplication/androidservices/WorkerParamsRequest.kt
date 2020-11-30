@@ -13,18 +13,18 @@ class WorkerParamsRequest {
 
     private var idWork: UUID = UUID.randomUUID()
     private val constraints = Constraints.Builder().build()
-    private val worker: WorkManager? = App.instance?.let { WorkManager.getInstance(it) }
+    private val worker: WorkManager = WorkManager.getInstance(App.instance)
 
     fun enqueue() {
-        worker?.enqueue(uploadWorkRequest())
+        worker.enqueue(uploadWorkRequest())
     }
 
     fun workManagerInfo(): LiveData<WorkInfo>? {
-        return worker?.getWorkInfoByIdLiveData(idWork)
+        return worker.getWorkInfoByIdLiveData(idWork)
     }
 
     fun cancelWork() {
-        worker?.cancelWorkById(idWork)
+        worker.cancelWorkById(idWork)
     }
 
     private fun uploadWorkRequest() = OneTimeWorkRequestBuilder<WorkerManagerDelegate>()

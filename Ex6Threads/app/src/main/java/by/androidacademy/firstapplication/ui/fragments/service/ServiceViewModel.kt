@@ -38,12 +38,17 @@ class ServiceViewModel(
     }
 
     private fun resetState() {
-        viewModelState.isEnableButton(true)
+        viewModelState.run {
+            isEnableButton(true)
+            isEnableIntentService(false)
+            isEnableJobIntentService(false)
+        }
         cancelWork()
         heavyWorkManager.run {
             resetProgress()
             onDestroy()
         }
+
     }
 
     private fun subscribeToDownloadProgress() {
@@ -67,4 +72,6 @@ class ServiceViewModel(
 
     fun isEnableDownloadJobIntentService(): LiveData<Boolean> =
             viewModelState.isEnableDownloadJobIntentService()
+
+
 }

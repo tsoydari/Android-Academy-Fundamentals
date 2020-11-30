@@ -47,6 +47,7 @@ class ServiceFragment : Fragment(R.layout.fragment_bg_service) {
         }
 
         btnIntentService.setOnClickListener {
+            setSateForBtn(false)
             serviceDelegate.startDownloadIntentService(requireContext(), true)
         }
     }

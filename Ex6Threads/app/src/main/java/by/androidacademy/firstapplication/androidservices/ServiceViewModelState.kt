@@ -5,10 +5,10 @@ import androidx.lifecycle.MutableLiveData
 
 class ServiceViewModelState {
 
-    private val progressData: MutableLiveData<Int> = MutableLiveData()
-    private val isEnableButton: MutableLiveData<Boolean> = MutableLiveData()
-    private val isEnableIntentService: MutableLiveData<Boolean> = MutableLiveData()
-    private val isEnableJobIntentService: MutableLiveData<Boolean> = MutableLiveData()
+    private val progressData: MutableLiveData<Int> = MutableLiveData(0)
+    private val isEnableButton: MutableLiveData<Boolean> = MutableLiveData(true)
+    private val isEnableIntentService: MutableLiveData<Boolean> = MutableLiveData(false)
+    private val isEnableJobIntentService: MutableLiveData<Boolean> = MutableLiveData(false)
 
     fun downloadProgress(): LiveData<Int> = progressData
 
@@ -16,11 +16,11 @@ class ServiceViewModelState {
 
     fun isEnableDownloadJobIntentService(): LiveData<Boolean> = isEnableJobIntentService
 
-    fun setProgress(progressData: Int) = this.progressData.postValue(progressData)
+    fun setProgress(progressData_: Int) = progressData.postValue(progressData_)
 
     fun isButtonsEnable(): LiveData<Boolean> = isEnableButton
 
-    fun isEnableButton(isEnableButton: Boolean) = this.isEnableButton.postValue(isEnableButton)
+    fun isEnableButton(isEnableButton_: Boolean) = isEnableButton.postValue(isEnableButton_)
 
     fun isEnableIntentService(isEnableDownloadIntentService: Boolean) =
             this.isEnableIntentService.postValue(isEnableDownloadIntentService)

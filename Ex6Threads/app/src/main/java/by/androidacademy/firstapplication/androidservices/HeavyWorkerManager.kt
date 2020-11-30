@@ -11,16 +11,12 @@ const val DELAY_VALUE = DELAY_TICK * MAX_PROGRESS + 1000L//-1sec for cold start
 class HeavyWorkerManager {
 
     private var handler: Handler = Handler()
-    private var runnable: Runnable? = null
+    private var runnable: Runnable = initWork()
     private var counter = 0
-    private val progressUpdaterService: MutableLiveData<Int> = MutableLiveData()
+    private val progressUpdaterService: MutableLiveData<Int> = MutableLiveData(0)
 
-    init {
-        initWork()
-    }
-
-    private fun initWork() {
-        runnable = Runnable {
+    private fun initWork() =
+        Runnable {
             showProgressNumber(
                 when {
                     counter < MAX_PROGRESS -> {
@@ -31,10 +27,7 @@ class HeavyWorkerManager {
                     }
                 }
             )
-            runnable?.run {
-                handler.postDelayed(this, DELAY_TICK)
-            }
-        }
+            handler.postDelayed(runnable, DELAY_TICK)
     }
 
     private fun showProgressNumber(progress: Int) {
@@ -42,7 +35,7 @@ class HeavyWorkerManager {
     }
 
     fun startWork() {
-        runnable?.run { handler.post(this) }
+        handler.post(runnable)
     }
 
     fun resetProgress() {
@@ -56,9 +49,7 @@ class HeavyWorkerManager {
     }
 
     fun onDestroy() {
-        runnable?.run {
-            handler.removeCallbacks(this)
-        }
+        handler.removeCallbacks(runnable)
     }
 
     fun getProgressUpdaterService(): LiveData<Int> = progressUpdaterService
