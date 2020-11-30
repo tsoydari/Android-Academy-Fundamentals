@@ -40,4 +40,15 @@
     <string name="notification_channel_name">androidacademy</string>
     <string name="notification_text">Androidacademy</string>
 
+    <string name="generic_error">Something went wrong</string>
+    <string name="dialog_title">Permission needed</string>
+    <string name="dialog_message">To be able downloading requested file the app needs to access your files</string>
+    <string name="dialog_ok">OK</string>
+    <string name="notification_title">Downloading… %1$d%%</string>
+    <string name="notification_message">In progress</string>
+    <string name="channel_name">Default channel</string>
+    <string name="channel_description">It is a channel for default notifications</string>
+    <string name="notification_error_title">Error</string>
+    <string name="notification_error_message">Image can not be downloaded</string>
+
 </resources>
