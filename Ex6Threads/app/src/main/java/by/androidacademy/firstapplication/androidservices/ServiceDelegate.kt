@@ -20,6 +20,16 @@ class ServiceDelegate {
         }
     }
 
+    fun startDownloadService(context: Context, isEnable: Boolean) {
+        val service = Intent(context, DownloadService::class.java)
+        service.putExtra(SERVICE_INT_DATA, isEnable)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            context.startForegroundService(service)
+        } else {
+            context.startService(service)
+        }
+    }
+
 
     fun stopDownloadIntentService(context: Context) {
         val service = Intent(context, DownloadIntentService::class.java)
@@ -31,10 +41,14 @@ class ServiceDelegate {
         context.stopService(service)
     }
 
+    fun stopDownloadService(context: Context) {
+        val service = Intent(context, DownloadService::class.java)
+        context.stopService(service)
+    }
 
     fun stopAllService(context: Context) {
         stopDownloadIntentService(context)
         stopDownloadJobIntentService(context)
-//        stopDownloadService(context)
+        stopDownloadService(context)
     }
 }
