@@ -50,5 +50,6 @@
     <string name="channel_description">It is a channel for default notifications</string>
     <string name="notification_error_title">Error</string>
     <string name="notification_error_message">Image can not be downloaded</string>
+    <string name="download_a_poster_image">Download a poster image</string>
 
 </resources>
