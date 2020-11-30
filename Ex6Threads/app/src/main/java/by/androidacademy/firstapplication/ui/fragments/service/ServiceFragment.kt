@@ -50,6 +50,11 @@ class ServiceFragment : Fragment(R.layout.fragment_bg_service) {
             setSateForBtn(false)
             serviceDelegate.startDownloadIntentService(requireContext(), true)
         }
+
+        btnService.setOnClickListener {
+            setSateForBtn(false)
+            serviceDelegate.startDownloadService(requireContext(), true)
+        }
     }
 
     private fun initObservers() {
@@ -70,6 +75,11 @@ class ServiceFragment : Fragment(R.layout.fragment_bg_service) {
             isEnableDownloadJobIntentService().observe(viewLifecycleOwner, Observer { isEnable ->
                 if (!isEnable) {
                     stopDownloadJobIntentService()
+                }
+            })
+            isEnableDownloadService().observe(viewLifecycleOwner, Observer { isEnable ->
+                if (!isEnable) {
+                    stopDownloadService()
                 }
             })
         }
@@ -99,5 +109,9 @@ class ServiceFragment : Fragment(R.layout.fragment_bg_service) {
 
     private fun stopDownloadJobIntentService() {
         serviceDelegate.stopDownloadJobIntentService(requireContext())
+    }
+
+    private fun stopDownloadService() {
+        serviceDelegate.stopDownloadService(requireContext())
     }
 }

@@ -73,5 +73,5 @@ class ServiceViewModel(
     fun isEnableDownloadJobIntentService(): LiveData<Boolean> =
             viewModelState.isEnableDownloadJobIntentService()
 
-
+    fun isEnableDownloadService(): LiveData<Boolean> = viewModelState.isEnableDownloadService()
 }
