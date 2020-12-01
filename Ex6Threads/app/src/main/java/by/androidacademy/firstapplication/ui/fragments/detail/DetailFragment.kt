@@ -39,7 +39,7 @@ class DetailFragment : Fragment(R.layout.fragment_details) {
             }
 
     private val isPermissionGranted: Boolean
-        get() = ContextCompat.checkSelfPermission(requireActivity(), PERMISSION) ==
+        get() = ContextCompat.checkSelfPermission(requireContext(), PERMISSION) ==
                 PackageManager.PERMISSION_GRANTED
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -99,11 +99,12 @@ class DetailFragment : Fragment(R.layout.fragment_details) {
     }
 
     private fun downloadPoster() {
-        if (isPermissionGranted) {
-            startDownloadService()
-        } else {
-            requestPermission()
-        }
+        requestPermission()
+//        if (isPermissionGranted) {
+//            startDownloadService()
+//        } else {
+//            requestPermission()
+//        }
     }
 
     private fun startDownloadService() {

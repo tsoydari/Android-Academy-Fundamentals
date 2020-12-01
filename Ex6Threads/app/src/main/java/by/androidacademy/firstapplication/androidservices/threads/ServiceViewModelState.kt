@@ -1,4 +1,4 @@
-package by.androidacademy.firstapplication.androidservices
+package by.androidacademy.firstapplication.androidservices.threads
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

@@ -1,24 +1,35 @@
-package by.androidacademy.firstapplication.androidservices
+package by.androidacademy.firstapplication.androidservices.threads
 
-import android.app.IntentService
+import android.content.Context
 import android.content.Intent
 import android.os.Handler
 import android.os.Looper
+import androidx.core.app.JobIntentService
 import by.androidacademy.firstapplication.dependency.Dependencies
 
 
-const val SERVICE_INT_DATA = "data_params"
-private const val SERVICE_INTENT_PROGRESS = "IntentServiceProgress"
+const val JOB_ID = 10
 
-class DownloadIntentService : IntentService(SERVICE_INTENT_PROGRESS) {
+class DownloadJobIntentService : JobIntentService() {
 
-    override fun onHandleIntent(intent: Intent?) {
-        val params: Boolean? = intent?.getBooleanExtra(SERVICE_INT_DATA, false)
+    companion object {
+        fun enqueueWork(context: Context, intent: Intent) {
+            enqueueWork(context, DownloadJobIntentService::class.java, JOB_ID, intent)
+        }
+    }
+
+    override fun onHandleWork(intent: Intent) {
+        val params: Boolean? = intent.getBooleanExtra(SERVICE_INT_DATA, false)
 
         Handler(Looper.getMainLooper()).post {
             params?.run { startWork(this) }
         }
         Thread.sleep(DELAY_VALUE)//note, this is a random number, for an example hard work
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        resetWork()
     }
 
     private fun startWork(isEnable: Boolean) {
@@ -30,18 +41,12 @@ class DownloadIntentService : IntentService(SERVICE_INTENT_PROGRESS) {
                         heavyWorkManager.startWork()
                     }
                 }
-                else -> {
-                    Dependencies.run {
-                        notificationsManager?.hideNotification()
-                        heavyWorkManager.resetProgress()
-                    }
-                }
+                else -> resetWork()
             }
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    private fun resetWork() {
         Handler(Looper.getMainLooper()).post {
             Dependencies.run {
                 heavyWorkManager.run {
@@ -51,6 +56,5 @@ class DownloadIntentService : IntentService(SERVICE_INTENT_PROGRESS) {
                 notificationsManager?.hideNotification()
             }
         }
-
     }
 }

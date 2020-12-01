@@ -7,8 +7,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import by.androidacademy.firstapplication.R
-import by.androidacademy.firstapplication.androidservices.ServiceDelegate
-import by.androidacademy.firstapplication.androidservices.WorkerParamsRequest
+import by.androidacademy.firstapplication.androidservices.threads.ServiceDelegate
+import by.androidacademy.firstapplication.androidservices.threads.WorkerParamsRequest
 import by.androidacademy.firstapplication.dependency.Dependencies
 import kotlinx.android.synthetic.main.fragment_bg_service.*
 

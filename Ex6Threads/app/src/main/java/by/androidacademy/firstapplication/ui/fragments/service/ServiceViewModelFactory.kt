@@ -2,15 +2,15 @@ package by.androidacademy.firstapplication.ui.fragments.service
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import by.androidacademy.firstapplication.androidservices.HeavyWorkerManager
-import by.androidacademy.firstapplication.androidservices.ServiceViewModelState
-import by.androidacademy.firstapplication.androidservices.WorkerParamsRequest
+import by.androidacademy.firstapplication.androidservices.threads.HeavyWorkerManager
+import by.androidacademy.firstapplication.androidservices.threads.ServiceViewModelState
+import by.androidacademy.firstapplication.androidservices.threads.WorkerParamsRequest
 
 
 class ServiceViewModelFactory(
-    private val heavyWorkManager: HeavyWorkerManager,
-    private val serviceViewModelState: ServiceViewModelState,
-    private val workerParamsRequest: WorkerParamsRequest
+        private val heavyWorkManager: HeavyWorkerManager,
+        private val serviceViewModelState: ServiceViewModelState,
+        private val workerParamsRequest: WorkerParamsRequest
 ) :
     ViewModelProvider.Factory {
 

@@ -27,17 +27,17 @@
         </activity>
 
         <service
-            android:name=".androidservices.DownloadService"
+            android:name=".androidservices.threads.ImitationService"
             android:enabled="true"
             android:exported="false" />
 
         <service
-            android:name=".androidservices.DownloadIntentService"
+            android:name=".androidservices.threads.DownloadIntentService"
             android:enabled="true"
             android:exported="false" />
 
         <service
-            android:name=".androidservices.DownloadJobIntentService"
+            android:name=".androidservices.threads.DownloadJobIntentService"
             android:enabled="true"
             android:exported="false"
             android:permission="android.permission.BIND_JOB_SERVICE" />

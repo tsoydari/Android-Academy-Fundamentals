@@ -1,6 +1,5 @@
-package by.androidacademy.firstapplication.androidservices
+package by.androidacademy.firstapplication.androidservices.threads
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Build
@@ -21,7 +20,7 @@ class ServiceDelegate {
     }
 
     fun startDownloadService(context: Context, isEnable: Boolean) {
-        val service = Intent(context, DownloadService::class.java)
+        val service = Intent(context, ImitationService::class.java)
         service.putExtra(SERVICE_INT_DATA, isEnable)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             context.startForegroundService(service)
@@ -42,7 +41,7 @@ class ServiceDelegate {
     }
 
     fun stopDownloadService(context: Context) {
-        val service = Intent(context, DownloadService::class.java)
+        val service = Intent(context, ImitationService::class.java)
         context.stopService(service)
     }
 

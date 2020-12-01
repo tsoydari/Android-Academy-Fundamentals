@@ -40,22 +40,22 @@ class NotificationsManager(
         createChannel()
     }
 
-    fun showNotification(): Notification {
-        return with(
-                notificationBuilder
-                        .setContentTitle(channelName)
-                        .build()
-        )
-        { showNotification(this).run { this@with } }
+//    fun showNotification(): Notification {
+//        return with(notificationBuilder.build())
+//        { showNotification(this).run { this@with } }
+//    }
+
+    fun showNotification() {
+        return notificationManager.notify(SERVICE_NOTIFICATION_ID, notificationBuilder.build())
     }
 
     fun hideNotification() {
         notificationManager.cancel(SERVICE_NOTIFICATION_ID)
     }
 
-    private fun showNotification(notification: Notification) {
-        notificationManager.notify(SERVICE_NOTIFICATION_ID, notification)
-    }
+//    private fun showNotification(notification: Notification) {
+//        notificationManager.notify(SERVICE_NOTIFICATION_ID, notification)
+//    }
 
     private fun createChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O &&
@@ -79,7 +79,8 @@ class NotificationsManager(
         return Builder(context, channelId)
                 .setCategory(CATEGORY_EVENT)
                 .setPriority(PRIORITY_MAX)
-                .setAutoCancel(true)
+                .setAutoCancel(false)
+                .setContentTitle(channelName)
                 .setContentText(resourceManager.getString(R.string.notification_text))
                 .setLargeIcon(iconNotification)
                 .setSmallIcon(android.R.mipmap.sym_def_app_icon)
@@ -88,6 +89,7 @@ class NotificationsManager(
                 .setSound(null)
                 .setLights(indicatorColor, 1000, 1000)
                 .setVisibility(VISIBILITY_PUBLIC)
+
     }
 
 }

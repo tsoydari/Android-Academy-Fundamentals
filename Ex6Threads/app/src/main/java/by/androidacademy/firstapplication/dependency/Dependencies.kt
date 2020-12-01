@@ -4,10 +4,10 @@ import android.app.NotificationManager
 import android.content.Context.NOTIFICATION_SERVICE
 import androidx.room.Room
 import by.androidacademy.firstapplication.App
-import by.androidacademy.firstapplication.androidservices.HeavyWorkerManager
-import by.androidacademy.firstapplication.androidservices.ServiceDelegate
-import by.androidacademy.firstapplication.androidservices.ServiceViewModelState
-import by.androidacademy.firstapplication.androidservices.WorkerParamsRequest
+import by.androidacademy.firstapplication.androidservices.threads.HeavyWorkerManager
+import by.androidacademy.firstapplication.androidservices.threads.ServiceDelegate
+import by.androidacademy.firstapplication.androidservices.threads.ServiceViewModelState
+import by.androidacademy.firstapplication.androidservices.threads.WorkerParamsRequest
 import by.androidacademy.firstapplication.api.TmdbServiceApi
 import by.androidacademy.firstapplication.db.AppDatabase
 import by.androidacademy.firstapplication.repository.MoviesRepository

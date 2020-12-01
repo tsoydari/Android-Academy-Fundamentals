@@ -1,4 +1,4 @@
-package by.androidacademy.firstapplication.androidservices
+package by.androidacademy.firstapplication.androidservices.threads
 
 import android.app.Service
 import android.content.Intent
@@ -6,7 +6,7 @@ import android.os.IBinder
 import by.androidacademy.firstapplication.dependency.Dependencies
 
 
-class DownloadService : Service() {
+class ImitationService : Service() {
 
     override fun onBind(intent: Intent): IBinder? {
         throw UnsupportedOperationException("Not yet implemented")

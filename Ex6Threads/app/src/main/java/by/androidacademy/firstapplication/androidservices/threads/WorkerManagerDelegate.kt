@@ -1,8 +1,10 @@
-package by.androidacademy.firstapplication.androidservices
+package by.androidacademy.firstapplication.androidservices.threads
 
 import android.content.Context
 import androidx.work.Worker
 import androidx.work.WorkerParameters
+import by.androidacademy.firstapplication.androidservices.threads.DELAY_VALUE
+import by.androidacademy.firstapplication.androidservices.threads.HeavyWorkerManager
 import by.androidacademy.firstapplication.dependency.Dependencies
 import by.androidacademy.firstapplication.utils.NotificationsManager
 

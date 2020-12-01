@@ -4,15 +4,15 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
-import by.androidacademy.firstapplication.androidservices.HeavyWorkerManager
-import by.androidacademy.firstapplication.androidservices.MAX_PROGRESS
-import by.androidacademy.firstapplication.androidservices.ServiceViewModelState
-import by.androidacademy.firstapplication.androidservices.WorkerParamsRequest
+import by.androidacademy.firstapplication.androidservices.threads.HeavyWorkerManager
+import by.androidacademy.firstapplication.androidservices.threads.MAX_PROGRESS
+import by.androidacademy.firstapplication.androidservices.threads.ServiceViewModelState
+import by.androidacademy.firstapplication.androidservices.threads.WorkerParamsRequest
 
 class ServiceViewModel(
-    private val heavyWorkManager: HeavyWorkerManager,
-    private val viewModelState: ServiceViewModelState,
-    private val workerParamsRequest: WorkerParamsRequest
+        private val heavyWorkManager: HeavyWorkerManager,
+        private val viewModelState: ServiceViewModelState,
+        private val workerParamsRequest: WorkerParamsRequest
 ) : ViewModel() {
 
     private val progressStatus = Observer<Int> { progress ->
