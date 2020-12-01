@@ -2,6 +2,7 @@ package by.androidacademy.firstapplication.dependency
 
 import android.app.NotificationManager
 import android.content.Context.NOTIFICATION_SERVICE
+import android.os.Environment
 import androidx.room.Room
 import by.androidacademy.firstapplication.App
 import by.androidacademy.firstapplication.androidservices.threads.HeavyWorkerManager
@@ -42,7 +43,7 @@ object Dependencies {
         createWorkerParamsRequest()
     }
 
-
+    val downloadsFile = App.instance?.applicationContext?.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)
 
     private fun createDataBase() = App.instance?.let {
         Room.databaseBuilder(
