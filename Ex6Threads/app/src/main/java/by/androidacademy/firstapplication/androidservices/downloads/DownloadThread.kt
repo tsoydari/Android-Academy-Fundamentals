@@ -1,5 +1,6 @@
 package by.androidacademy.firstapplication.androidservices.downloads
 
+import android.os.Environment
 import android.util.Log
 import by.androidacademy.firstapplication.dependency.Dependencies
 import java.io.*
@@ -91,6 +92,7 @@ class DownloadThread(
 //        val dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
         // Create the storage directory if it does not exist
         val dirOutput = Dependencies.downloadsFile
+//        val dirOutput = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
         dirOutput?.run {
             if (this.exists() ) {
                 if (this.mkdirs()) {
@@ -107,7 +109,8 @@ class DownloadThread(
     private fun createFileName(): String {
         val fileName = File(URI(url).path).name
         val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(Date())
-        return "${timeStamp}_${fileName}"
+//        return "${timeStamp}_${fileName}"
+        return "filename"
     }
 
     interface DownloadCallBack {

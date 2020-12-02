@@ -48,6 +48,7 @@ class PosterActivity : AppCompatActivity() {
         fun newIntent(context: Context, posterPath: String): Intent {
             return Intent(context, PosterActivity::class.java)
                     .putExtra(POSTER_PATH, posterPath)
+                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         }
     }
 }

@@ -26,6 +26,8 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".androidservices.downloads.PosterActivity"/>
+
         <service
             android:name=".androidservices.threads.ImitationService"
             android:enabled="true"
@@ -41,6 +43,14 @@
             android:enabled="true"
             android:exported="false"
             android:permission="android.permission.BIND_JOB_SERVICE" />
+
+        <service android:name=".androidservices.downloads.DownloadService"/>
+        <receiver android:name=".androidservices.downloads.CompleteReceiver" android:exported="true">
+            <intent-filter>
+                <action android:name="by.androidacademy.firstapplication.androidservices.downloads.DOWNLOAD_COMPLETE"/>
+            </intent-filter>
+        </receiver>
+
 
     </application>
 

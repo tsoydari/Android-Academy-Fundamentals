@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import by.androidacademy.firstapplication.R
+import by.androidacademy.firstapplication.androidservices.downloads.DownloadService
 import by.androidacademy.firstapplication.data.Movie
 import by.androidacademy.firstapplication.dependency.Dependencies
 import coil.api.load
@@ -99,16 +100,16 @@ class DetailFragment : Fragment(R.layout.fragment_details) {
     }
 
     private fun downloadPoster() {
-        requestPermission()
-//        if (isPermissionGranted) {
-//            startDownloadService()
-//        } else {
-//            requestPermission()
-//        }
+        if (isPermissionGranted) {
+            startDownloadService()
+        } else {
+            requestPermission()
+        }
     }
 
     private fun startDownloadService() {
         Log.d("DetailsFragment", "startDownloadService")
+        DownloadService.startService(requireContext(), movieDetail.posterUrl)
     }
 
     private fun requestPermission() {
