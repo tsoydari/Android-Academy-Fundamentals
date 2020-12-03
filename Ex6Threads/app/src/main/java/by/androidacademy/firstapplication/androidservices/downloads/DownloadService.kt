@@ -1,6 +1,5 @@
 package by.androidacademy.firstapplication.androidservices.downloads
 
-
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -20,17 +19,65 @@ class DownloadService : Service() {
 
     private val notificationManager: NotificationManagerCompat by lazy {NotificationManagerCompat.from(applicationContext)}
 
+    override fun onBind(intent: Intent): IBinder? {
+        throw UnsupportedOperationException("Not yet implemented")
+    }
+
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
-        Log.d("DownloadService", "#onStartCommand")
         startForeground()
         val posterUrl = intent.getStringExtra(POSTER_URL)
-        if (posterUrl == null) {
-            Log.e("DownloadService", "Required arguments were not provided")
-            return START_NOT_STICKY
+        posterUrl?.run {
+            Log.d("DownloadService", "URL: $posterUrl")
+            startDownload(this)
+            return START_STICKY
         }
-        Log.d("DownloadService", "URL: $posterUrl")
-        startDownload(posterUrl)
-        return START_STICKY
+        Log.e("DownloadService", "Required arguments were not provided")
+        return START_NOT_STICKY
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d("DownloadService", "#onDestroy")
+    }
+
+    private fun startForeground() {
+        createNotificationChannel()
+        val notification = createNotification(0)
+        startForeground(ONGOING_NOTIFICATION_ID, notification)
+    }
+
+    private fun createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) { // The user-visible name of the channel.
+            val name: CharSequence = getString(R.string.channel_name)
+            // The user-visible description of the channel.
+            val description_ = getString(R.string.channel_description)
+            val importance = NotificationManager.IMPORTANCE_HIGH
+            val mChannel = NotificationChannel(
+                    CHANNEL_DEFAULT_IMPORTANCE,
+                    name,
+                    importance
+            )
+            // Configure the notification channel.
+            mChannel.run {
+                description = description_
+                enableLights(true)
+                lightColor = Color.RED
+                enableVibration(true)
+                vibrationPattern = longArrayOf(100, 200, 300, 400, 500, 400, 300, 200, 400)
+            }
+            notificationManager.createNotificationChannel(mChannel)
+        }
+    }
+
+    private fun createNotification(progress: Int): Notification {
+        val notificationIntent = Intent(this, PosterActivity::class.java)
+        val pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0)
+        return NotificationCompat.Builder(this, CHANNEL_DEFAULT_IMPORTANCE)
+                .setContentTitle(getString(R.string.notification_title, progress))
+                .setContentText(getText(R.string.notification_message))
+                .setSmallIcon(R.drawable.ic_stat_download)
+                .setContentIntent(pendingIntent)
+                .build()
     }
 
     private fun startDownload(posterUrl: String) {
@@ -49,64 +96,13 @@ class DownloadService : Service() {
 
             override fun onError(error: String) {
                 Log.e("DownloadService", "Error: $error")
-                notificationManager.notify(ERROR_NOTIFICATION_ID, createErrorNotification())
-                notificationManager.cancel(ONGOING_NOTIFICATION_ID)
+                notificationManager.run {
+                    notify(ERROR_NOTIFICATION_ID, createErrorNotification())
+                    cancel(ONGOING_NOTIFICATION_ID)
+                }
                 stopSelf()
             }
         }).start()
-    }
-
-    private fun startForeground() {
-        createNotificationChannel()
-        val notification = createNotification(0)
-        startForeground(ONGOING_NOTIFICATION_ID, notification)
-    }
-
-    private fun createNotification(progress: Int): Notification {
-        val notificationIntent = Intent(this, PosterActivity::class.java)
-        val pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0)
-        return NotificationCompat.Builder(this, CHANNEL_DEFAULT_IMPORTANCE)
-                .setContentTitle(getString(R.string.notification_title, progress))
-                .setContentText(getText(R.string.notification_message))
-                .setSmallIcon(R.drawable.ic_stat_download)
-                .setContentIntent(pendingIntent)
-                .build()
-    }
-
-    private fun createErrorNotification(): Notification {
-        return NotificationCompat.Builder(this, CHANNEL_DEFAULT_IMPORTANCE)
-                .setContentTitle(getText(R.string.notification_error_title))
-                .setContentText(getText(R.string.notification_error_message))
-                .setSmallIcon(R.drawable.ic_stat_download)
-                .build()
-    }
-
-    private fun updateNotification(progress: Int) {
-        val notification = createNotification(progress)
-        notificationManager.notify(ONGOING_NOTIFICATION_ID, notification)
-    }
-
-    private fun createNotificationChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) { // The user-visible name of the channel.
-            val name: CharSequence = getString(R.string.channel_name)
-            // The user-visible description of the channel.
-            val description = getString(R.string.channel_description)
-            val importance = NotificationManager.IMPORTANCE_HIGH
-            val mChannel = NotificationChannel(
-                    CHANNEL_DEFAULT_IMPORTANCE,
-                    name,
-                    importance
-            )
-            // Configure the notification channel.
-            mChannel.description = description
-            mChannel.enableLights(true)
-            // Sets the notification light color for notifications posted to this
-            // channel, if the device supports this feature.
-            mChannel.lightColor = Color.RED
-            mChannel.enableVibration(true)
-            mChannel.vibrationPattern = longArrayOf(100, 200, 300, 400, 500, 400, 300, 200, 400)
-            notificationManager.createNotificationChannel(mChannel)
-        }
     }
 
     private fun sendBroadcastMsgDownloadComplete(posterPath: String) {
@@ -119,12 +115,18 @@ class DownloadService : Service() {
         sendBroadcast(intent)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.d("DownloadService", "#onDestroy")
+    private fun updateNotification(progress: Int) {
+        val notification = createNotification(progress)
+        notificationManager.notify(ONGOING_NOTIFICATION_ID, notification)
     }
 
-    override fun onBind(intent: Intent): IBinder? = null
+    private fun createErrorNotification(): Notification {
+        return NotificationCompat.Builder(this, CHANNEL_DEFAULT_IMPORTANCE)
+                .setContentTitle(getText(R.string.notification_error_title))
+                .setContentText(getText(R.string.notification_error_message))
+                .setSmallIcon(R.drawable.ic_stat_download)
+                .build()
+    }
 
     companion object {
 
