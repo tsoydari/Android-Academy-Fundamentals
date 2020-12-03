@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import android.widget.Toast
+import by.androidacademy.firstapplication.ui.fragments.poster.PosterFragment
 
 class CompleteReceiver : BroadcastReceiver() {
 
@@ -13,7 +14,7 @@ class CompleteReceiver : BroadcastReceiver() {
         Toast.makeText(context, "File downloaded", Toast.LENGTH_SHORT).show()
         val posterPath = intent.getStringExtra(DownloadService.POSTER_PATH) ?: return
         Log.d("CompleteReceiver", "#onReceive, posterPath: $posterPath")
-        val trailerIntent = PosterActivity.newIntent(context, posterPath)
+        val trailerIntent = PosterFragment.newIntent(context, posterPath)
         context.startActivity(trailerIntent)
     }
 }

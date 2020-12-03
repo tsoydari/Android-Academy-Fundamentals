@@ -26,8 +26,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".androidservices.downloads.PosterActivity"/>
-
         <service
             android:name=".androidservices.threads.ImitationService"
             android:enabled="true"

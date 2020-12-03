@@ -14,6 +14,7 @@ import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import by.androidacademy.firstapplication.R
+import by.androidacademy.firstapplication.ui.activities.MoviesActivity
 
 class DownloadService : Service() {
 
@@ -70,7 +71,7 @@ class DownloadService : Service() {
     }
 
     private fun createNotification(progress: Int): Notification {
-        val notificationIntent = Intent(this, PosterActivity::class.java)
+        val notificationIntent = Intent(this, MoviesActivity::class.java)
         val pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0)
         return NotificationCompat.Builder(this, CHANNEL_DEFAULT_IMPORTANCE)
                 .setContentTitle(getString(R.string.notification_title, progress))

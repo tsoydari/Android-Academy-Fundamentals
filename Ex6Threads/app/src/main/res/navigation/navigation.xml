@@ -24,6 +24,9 @@
         <action
             android:id="@+id/action_detailsFragment_to_moviesFragment"
             app:destination="@id/moviesFragment" />
+        <action
+            android:id="@+id/action_detailsFragment_to_posterFragment"
+            app:destination="@id/posterFragment" />
     </fragment>
     <fragment
         android:id="@+id/coroutinesFragment"
@@ -35,4 +38,16 @@
         android:name="by.androidacademy.firstapplication.ui.fragments.service.ServiceFragment"
         android:label="fragment_bg_service"
         tools:layout="@layout/fragment_bg_service" />
+    <fragment
+        android:id="@+id/posterFragment"
+        android:name="by.androidacademy.firstapplication.ui.fragments.poster.PosterFragment"
+        android:label="fragment_poster"
+        tools:layout="@layout/fragment_poster" >
+        <action
+            android:id="@+id/action_posterFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+        <argument
+            android:name="pathPoster"
+            app:argType="string" />
+    </fragment>
 </navigation>
